@@ -11,7 +11,6 @@ allowed-tools: Bash AskUserQuestion Read
 guide-cli:
   mode: inline
   capability: low
-  install_method: null
   features: ["linear-steps", "prereqs"]
 ---
 

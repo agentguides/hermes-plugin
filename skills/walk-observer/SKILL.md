@@ -11,7 +11,6 @@ allowed-tools: Bash AskUserQuestion Read
 guide-cli:
   mode: observer
   capability: full
-  install_method: null
   features: ["linear-steps", "prereqs", "retry", "recover", "sub-walks", "branching", "agent-judgment-reasoning"]
 ---
 
