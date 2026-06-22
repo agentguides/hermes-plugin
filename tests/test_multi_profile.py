@@ -15,6 +15,14 @@ What's exercised here:
 Plugin scope derivation is exercised directly via `derive_scope()` — Hermes
 isn't in the loop here; the bootstrap + mcp-config writer + view apply are
 the things we own and the things that could drift.
+
+NOTE (v0.5.7/M3): this is the one plugin test that is a *plugin↔runtime
+integration* test — it imports `guide_plugin` (this plugin) AND, inside the
+bodies below, `guide_cli` (the runtime: pack/library/view/state). It is the
+sole exception to "plugin tests need zero runtime source." When this plugin
+becomes a standalone repo (see `public-split.md`), it must declare `guide-cli`
+as a dev/test dependency so this test can import it. All other tests in this
+suite are runtime-source-free.
 """
 
 from __future__ import annotations
