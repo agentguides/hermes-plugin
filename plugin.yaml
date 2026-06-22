@@ -1,0 +1,9 @@
+name: guide
+version: "0.5.5"
+description: >
+  guide-cli plugin for Hermes — installs the walk Skills, registers the
+  guide MCP server, and exposes per-profile library + walk-state management.
+  The plugin manages a per-profile symlink-farm view of the centralized
+  $GUIDE_HOME/library/ inside its own .local/ bubble; walk state lands in
+  the multi-tenant $GUIDE_HOME/state/ backend tagged with harness=hermes +
+  scope=<profile-name>.

@@ -1,0 +1,9 @@
+# Operator-owned per-profile state survives plugin updates.
+# Standard dotfile-pattern convention: code is git-managed; .local/ is not.
+.local/
+
+# Stray Python build artifacts (none expected — the plugin is stdlib-only,
+# but cover them just in case CPython spits some out).
+__pycache__/
+*.pyc
+.pytest_cache/

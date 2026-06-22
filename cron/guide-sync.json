@@ -1,0 +1,9 @@
+{
+  "name": "guide-sync",
+  "schedule": "0 * * * *",
+  "prompt": "Run `guide sync` to refresh library content from configured sources and re-apply this profile's symlink view.",
+  "no_agent": true,
+  "script": "${PLUGIN_ROOT}/bin/guide-mcp-wrapper.sh -- guide sync --view ${PLUGIN_ROOT}/.local/library-view",
+  "paused": true,
+  "_comment": "Installed paused — operator opts in with `hermes cron resume guide-sync`. The wrapper script applies the same GUIDE_* env overlay it uses for the MCP server, so the cron run is tagged consistently with `harness: hermes` + `scope: <profile>`."
+}
