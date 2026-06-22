@@ -27,8 +27,13 @@ class StubContext:
         self.commands: list[str] = []
         self.hooks: list[str] = []
 
-    def register_skill(self, name: str, path: str) -> None:
-        self.skills.append((name, path))
+    def register_skill(self, name, path, description: str = "") -> None:
+        # Hermes passes a Path here; mirror that contract so the test catches
+        # accidental str regressions.
+        from pathlib import Path
+        assert isinstance(path, Path), f"register_skill path must be Path, got {type(path)}"
+        assert path.exists(), f"register_skill path must exist: {path}"
+        self.skills.append((name, str(path)))
 
     def register_cli_command(self, name, help, setup_fn, handler_fn) -> None:  # noqa: A002
         self.cli_commands.append(name)

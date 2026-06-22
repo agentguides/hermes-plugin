@@ -81,13 +81,15 @@ def _do_register(ctx) -> None:
         # than refusing to load.
 
     # 4. Walk Skills — register each `SKILL.md` from the plugin's skills/ dir.
+    # Hermes's `register_skill(name, path: Path, ...)` calls `path.exists()`
+    # internally so we MUST pass a Path object, not a string.
     skills_dir = paths.plugin_root / "skills"
     if skills_dir.is_dir():
         for child in sorted(skills_dir.iterdir()):
             skill_md = child / "SKILL.md"
             if skill_md.is_file() and hasattr(ctx, "register_skill"):
                 try:
-                    ctx.register_skill(name=child.name, path=str(skill_md))
+                    ctx.register_skill(name=child.name, path=skill_md)
                 except Exception as exc:  # noqa: BLE001
                     _log(f"register_skill({child.name!r}) failed: {exc}")
 

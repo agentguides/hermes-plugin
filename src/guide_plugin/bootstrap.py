@@ -87,27 +87,44 @@ def initial_pull(
             ("<all defaults>", "guide binary not on PATH; skipping initial pull")
         )
         return
+    # IMPORTANT: bootstrap pulls into the MASTER library, not the view. We
+    # override GUIDE_LIBRARY_PATH for this call so `guide sync` writes to
+    # `$GUIDE_HOME/library/`. The view path is consumed by `apply_view()`
+    # below, which symlinks from the master library into the view bubble.
     overlay = _cli.guide_env_overlay(
         guide_home=paths.guide_home,
-        view_root=paths.view,
+        view_root=paths.master_lib,
         state_path=paths.state,
         scope="bootstrap",
     )
     for target in targets:
         try:
-            _cli.run_guide(["sync", target], env_overlay=overlay, capture=True)
-            report.pulled.append(target)
+            res = _cli.run_guide(
+                ["sync", target], env_overlay=overlay, check=False, capture=True
+            )
         except Exception as exc:  # noqa: BLE001
             report.pull_failures.append((target, str(exc)))
+            continue
+        if res.returncode == 0:
+            report.pulled.append(target)
+        else:
+            detail = (res.stderr or res.stdout or "").strip().splitlines()
+            tail = " | ".join(detail[-3:]) if detail else "no output"
+            report.pull_failures.append(
+                (target, f"exit={res.returncode}: {tail}")
+            )
 
 
 def apply_view(paths: PluginPaths, report: BootstrapReport) -> None:
     """Step 5: re-apply the view's symlink farm against the master library."""
     if not _cli.guide_on_path():
         return
+    # Use master_lib as GUIDE_LIBRARY_PATH so any list_library() done by
+    # `view apply` for resolve_entries reads from the correct root. `--library`
+    # is explicit but the env stays consistent for any sub-calls.
     overlay = _cli.guide_env_overlay(
         guide_home=paths.guide_home,
-        view_root=paths.view,
+        view_root=paths.master_lib,
         state_path=paths.state,
         scope="bootstrap",
     )
