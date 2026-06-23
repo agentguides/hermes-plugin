@@ -39,4 +39,5 @@ asyncio_mode = "auto"
 markers = [
     "live: tests that require a real host binary (hermes, opencode, etc.) and opt-in env vars; skipped by default — run with `pytest -m live`",
     "perf: wall-clock perf benchmarks; slow (~30s+); skipped by default — run with `pytest -m perf`",
+    "requires_runtime: needs guide_cli importable (render-parity drift guard); exclude with `pytest -m 'not requires_runtime'` for the runtime-source-free core run",
 ]
