@@ -36,17 +36,17 @@ def ensure_guide_installed() -> None:
         raise GuideNotInstalled(
             "guide-cli is not installed and `uv` is not available to "
             "auto-install it. Install one of:\n"
-            "  pipx install guide-cli   (or)   uv tool install guide-cli\n"
+            "  pipx install agentguides   (or)   uv tool install agentguides\n"
             "then re-enable the plugin."
         )
     subprocess.run(
-        ["uv", "tool", "install", "guide-cli"],
+        ["uv", "tool", "install", "agentguides"],
         check=True,
         env=os.environ.copy(),
     )
     if not guide_on_path():
         raise GuideNotInstalled(
-            "`uv tool install guide-cli` reported success but `guide` is "
+            "`uv tool install agentguides` reported success but `guide` is "
             "still not on PATH. Ensure `~/.local/bin` (or your uv tool "
             "install dir) is on PATH."
         )

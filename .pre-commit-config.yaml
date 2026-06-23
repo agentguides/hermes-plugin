@@ -1,0 +1,27 @@
+# Local pre-commit hooks. Install once: `uvx pre-commit install`.
+# Run on demand: `just precommit` (all files) or `uvx pre-commit run`.
+# ruff runs on CHANGED files only (incremental adoption — the legacy tree is
+# not mass-reformatted here).
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: version-changelog
+        name: version has a CHANGELOG entry
+        entry: uv run python scripts/check_version_changelog.py
+        language: system
+        pass_filenames: false
+        files: ^(pyproject\.toml|plugin\.yaml|CHANGELOG\.md)$
+
+      - id: render-drift
+        name: rendered walk Skills are not stale
+        entry: bash -c 'uv run python scripts/render_plugin_skills.py && git diff --exit-code -- skills'
+        language: system
+        pass_filenames: false
+        files: ^(skills/|scripts/render_plugin_skills\.py)

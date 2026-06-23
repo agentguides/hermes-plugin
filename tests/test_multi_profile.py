@@ -38,6 +38,13 @@ from guide_plugin.profile_config import ProfileConfig
 from guide_plugin.scope import derive_scope
 
 
+# This is the sole plugin↔runtime integration test: its bodies import the runtime
+# (`agentguides.library`/`pack`/`view`/`state`). Mark the whole module
+# `requires_runtime` so the runtime-source-free core run (`pytest -m "not
+# requires_runtime"`) excludes it and `just verify-runtime` includes it against
+# the BUILT runtime wheel.
+pytestmark = pytest.mark.requires_runtime
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE_BOOK = REPO_ROOT / "tests" / "fixtures" / "books" / "db-ops"
 
@@ -153,9 +160,9 @@ def test_mcp_config_writes_distinct_scopes_per_profile(two_profile_world) -> Non
 def test_library_entry_is_shared_views_independent(two_profile_world) -> None:
     """Install one Book into the shared library; each profile applies its own
     view; verify both views point at the SAME inode."""
-    from guide_cli.library import install_to_library
-    from guide_cli.pack import pack_book
-    from guide_cli.view import ViewConfig, apply_symlink_farm
+    from agentguides.library import install_to_library
+    from agentguides.pack import pack_book
+    from agentguides.view import ViewConfig, apply_symlink_farm
 
     default_paths, work_paths = two_profile_world
     bootstrap.run(default_paths, defaults=ProfileConfig())
@@ -182,9 +189,9 @@ def test_library_entry_is_shared_views_independent(two_profile_world) -> None:
 def test_per_profile_policy_does_not_leak(two_profile_world) -> None:
     """`work` switches to policy=none; `default` keeps policy=all. Library
     content is unchanged; only `work`'s view goes empty."""
-    from guide_cli.library import install_to_library
-    from guide_cli.pack import pack_book
-    from guide_cli.view import ViewConfig, apply_symlink_farm
+    from agentguides.library import install_to_library
+    from agentguides.pack import pack_book
+    from agentguides.view import ViewConfig, apply_symlink_farm
 
     default_paths, work_paths = two_profile_world
     bootstrap.run(default_paths, defaults=ProfileConfig())
@@ -217,7 +224,7 @@ def test_walks_from_two_profiles_filter_by_scope(
     """Walks spawned with each profile's `GUIDE_HARNESS`/`GUIDE_SCOPE` env land
     in the SAME state backend but filter cleanly by scope. Plan verification
     step #7 — the multi-tenant tagging that justifies the v0.5.5 design."""
-    from guide_cli.state import MarkdownBackend
+    from agentguides.state import MarkdownBackend
 
     default_paths, work_paths = two_profile_world
     backend = MarkdownBackend(default_paths.state)

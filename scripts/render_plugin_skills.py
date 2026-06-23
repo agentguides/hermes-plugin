@@ -19,7 +19,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from guide_cli.resources import render_router_skill, render_walk_skill
+from agentguides.resources import render_router_skill, render_walk_skill
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PLUGINS = (REPO_ROOT,)

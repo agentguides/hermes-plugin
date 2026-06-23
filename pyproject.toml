@@ -17,13 +17,18 @@ Issues = "https://github.com/agentguides/hermes-plugin/issues"
 
 [dependency-groups]
 dev = [
-    "guide-cli",
+    # Pinned to the verified-against runtime range. Local dev still resolves the
+    # editable sibling checkout via [tool.uv.sources]; the constraint documents
+    # what a non-editable resolve would pull and is the compat range
+    # `just verify-runtime` proves green.
+    "agentguides>=0.5.8,<0.6.0",
     "pytest>=8.0",
     "pytest-asyncio>=0.23",
+    "ruff>=0.6",
 ]
 
 [tool.uv.sources]
-guide-cli = { path = "../runtime", editable = true }
+agentguides = { path = "../runtime", editable = true }
 
 [build-system]
 requires = ["hatchling"]
@@ -41,3 +46,12 @@ markers = [
     "perf: wall-clock perf benchmarks; slow (~30s+); skipped by default — run with `pytest -m perf`",
     "requires_runtime: needs guide_cli importable (render-parity drift guard); exclude with `pytest -m 'not requires_runtime'` for the runtime-source-free core run",
 ]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+# Start lean: ruff's default high-signal rules (pyflakes + a few pycodestyle).
+# `ruff format` owns formatting. Mirrors the runtime's config.
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]

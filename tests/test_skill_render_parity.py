@@ -17,9 +17,9 @@ from pathlib import Path
 
 import pytest
 
-pytest.importorskip("guide_cli.resources")
+pytest.importorskip("agentguides.resources")
 
-from guide_cli.resources import render_router_skill, render_walk_skill  # noqa: E402
+from agentguides.resources import render_router_skill, render_walk_skill  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
