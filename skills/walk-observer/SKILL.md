@@ -54,13 +54,13 @@ For each step in topological order:
 
 1. `walk_step({phase: "enter", step_id})`. Save the returned `position` if you need read-after-write later.
 2. Execute the action by `action.type`:
-   - **script** → `Bash` (resolve path against `${CLAUDE_PLUGIN_ROOT}` or Guide root; honor `args` + `timeout_seconds`).
+   - **script** → `Bash`. Run the ABSOLUTE path from `walk_read_step`'s `resolved_scripts.action` (cwd-independent; the bare `action.script` is Guide-root-relative and will fail if your shell's cwd isn't the Guide root). Honor `args` + `timeout_seconds`.
    - **manual** / **prompt** → emit instructions; yield; the next user message is the report (the observer captures it as `human.report` automatically).
    - **skill_ref** → activate the referenced Skill.
    - **guide_ref** → call `walk_begin({guide_root: <sub>, parent_run_id: <current>})`; block until the sub-walk terminates.
 3. Apply `interactions` per `when` using `AskUserQuestion` (`confirm` / `choice` / `text`) or tool-less turn capture (`multiline`).
 4. Execute the verifier by `verify.type`:
-   - **script** → `Bash`; check exit against `success_exit` (default 0). If `output_schema: json`, parse stdout into a dict and pass as `verify_result`.
+   - **script** → `Bash` (run `resolved_scripts.verify`, the absolute path); check exit against `success_exit` (default 0). If `output_schema: json`, parse stdout into a dict and pass as `verify_result`.
    - **agent_judgment** → reason briefly in prose (the observer captures it verbatim as `step.reasoning`), then `walk_step({phase: "exit", verdict, reasoning_anchor: true})`.
    - **human_confirm** → `AskUserQuestion` with yes/no.
    - **none** → action completion is success.

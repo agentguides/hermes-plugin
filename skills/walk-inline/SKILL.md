@@ -57,11 +57,11 @@ For each step in topological order:
 1. `walk_update_step({run_id, step_id, status: "running"})`.
 2. `walk_append_event({run_id, event: {type: "step.start", step_id, ...}})`.
 3. Execute the action by `action.type`:
-   - **script** → `Bash` (resolve path against `${CLAUDE_PLUGIN_ROOT}` or Guide root; honor `args` + `timeout_seconds`).
+   - **script** → `Bash`. Run the ABSOLUTE path from `walk_read_step`'s `resolved_scripts.action` (cwd-independent; the bare `action.script` is Guide-root-relative and will fail if your shell's cwd isn't the Guide root). Honor `args` + `timeout_seconds`.
    - **manual** / **prompt** → emit instructions; yield; the next user message is the report. Record it via `walk_append_event({event: {type: "human.report", ...}})`.
 4. Apply `interactions`.
 5. Execute the verifier:
-   - **script** → `Bash`; check exit against `success_exit`.
+   - **script** → `Bash` (run `resolved_scripts.verify`, the absolute path); check exit against `success_exit`.
    - **human_confirm** → `AskUserQuestion` with yes/no.
    - **none** → success.
 6. `walk_update_step({run_id, step_id, status: <terminal>, patch: {verify_result?}})`.
