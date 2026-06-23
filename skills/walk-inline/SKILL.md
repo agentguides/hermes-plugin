@@ -8,10 +8,11 @@ description: |
   workflow", "drive the X runbook", "resume the X walk".
 license: MIT
 allowed-tools: Bash AskUserQuestion Read
-guide-cli:
-  mode: inline
-  capability: low
-  features: ["linear-steps", "prereqs"]
+guide:
+  runtime:
+    mode: inline
+    capability: low
+    features: ["linear-steps", "prereqs"]
 ---
 
 # Walking an `guide-cli` Guide

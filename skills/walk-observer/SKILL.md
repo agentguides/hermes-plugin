@@ -8,10 +8,11 @@ description: |
   workflow", "drive the X runbook", "resume the X walk".
 license: MIT
 allowed-tools: Bash AskUserQuestion Read
-guide-cli:
-  mode: observer
-  capability: full
-  features: ["linear-steps", "prereqs", "retry", "recover", "sub-walks", "branching", "agent-judgment-reasoning"]
+guide:
+  runtime:
+    mode: observer
+    capability: full
+    features: ["linear-steps", "prereqs", "retry", "recover", "sub-walks", "branching", "agent-judgment-reasoning"]
 ---
 
 # Walking an `guide-cli` Guide

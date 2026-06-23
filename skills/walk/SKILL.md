@@ -8,9 +8,10 @@ description: |
   workflow", "drive the X runbook", "resume the X walk".
 license: MIT
 allowed-tools: Bash
-guide-cli:
-  router: true
-  default_mode: observer
+guide:
+  runtime:
+    router: true
+    default_mode: observer
 ---
 
 # `walk` — guide-cli walk Skill router
