@@ -10,8 +10,8 @@ import pytest
 from guide_plugin import cron
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-TEMPLATE = REPO_ROOT / "plugins" / "hermes-plugin" / "cron" / "guide-sync.json"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+TEMPLATE = REPO_ROOT / "cron" / "guide-sync.json"
 
 
 def test_install_adds_job_to_empty_file(tmp_path: Path) -> None:

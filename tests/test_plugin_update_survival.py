@@ -18,11 +18,11 @@ from guide_plugin.paths import compute
 from guide_plugin.profile_config import ProfileConfig
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _stage_plugin(plugin_root: Path) -> None:
-    live = REPO_ROOT / "plugins" / "hermes-plugin"
+    live = REPO_ROOT
     plugin_root.mkdir(parents=True, exist_ok=True)
     for sub in ("cron", "bin", "skills"):
         link = plugin_root / sub
@@ -48,11 +48,9 @@ def installed_profile(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
 def test_local_bubble_is_git_ignored() -> None:
     """The plugin's own .gitignore must declare `.local/`. Without that line,
     `hermes plugins update` could blow away operator state via a hard reset."""
-    gitignore = (REPO_ROOT / "plugins" / "hermes-plugin" / ".gitignore").read_text(
-        encoding="utf-8"
-    )
+    gitignore = (REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
     assert ".local/" in gitignore.splitlines(), (
-        "plugins/hermes-plugin/.gitignore must list `.local/` so operator "
+        ".gitignore must list `.local/` so operator "
         "state survives `hermes plugins update`."
     )
 

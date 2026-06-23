@@ -38,13 +38,14 @@ from guide_plugin.profile_config import ProfileConfig
 from guide_plugin.scope import derive_scope
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[1]
+EXAMPLE_BOOK = REPO_ROOT / "tests" / "fixtures" / "books" / "db-ops"
 
 
 def _stage_plugin(plugin_root: Path) -> None:
     """Symlink the static-content subtrees the bootstrap consults so this
     test exercises the live plugin tree without copying it twice."""
-    live = REPO_ROOT / "plugins" / "hermes-plugin"
+    live = REPO_ROOT
     plugin_root.mkdir(parents=True, exist_ok=True)
     for sub in ("cron", "bin", "skills"):
         link = plugin_root / sub
@@ -163,7 +164,7 @@ def test_library_entry_is_shared_views_independent(two_profile_world) -> None:
     # Pack + install one book into the shared master library.
     dist = default_paths.guide_home / "dist"
     dist.mkdir(parents=True, exist_ok=True)
-    pack = pack_book(REPO_ROOT / "examples" / "books" / "db-ops", out_dir=dist)
+    pack = pack_book(EXAMPLE_BOOK, out_dir=dist)
     install_to_library(pack.bundle_path, root=default_paths.master_lib)
 
     # Each profile applies its own view; both pull from the same library.
@@ -191,7 +192,7 @@ def test_per_profile_policy_does_not_leak(two_profile_world) -> None:
 
     dist = default_paths.guide_home / "dist"
     dist.mkdir(parents=True, exist_ok=True)
-    pack = pack_book(REPO_ROOT / "examples" / "books" / "db-ops", out_dir=dist)
+    pack = pack_book(EXAMPLE_BOOK, out_dir=dist)
     install_to_library(pack.bundle_path, root=default_paths.master_lib)
 
     apply_symlink_farm(default_paths.master_lib, default_paths.view, ViewConfig())

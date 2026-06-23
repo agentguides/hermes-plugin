@@ -1,0 +1,6 @@
+{
+  "id": "db-ops",
+  "name": "Database Operations",
+  "version": "0.1.0",
+  "description": "Book: database operations Guides — snapshot/restore, point-in-time recovery, fast rollback. Cross-Guide bare-name refs (e.g. `guide:db-restore`) resolve inside this book per SPEC §15. Generated from BOOK.md — edit BOOK.md, not this file."
+}

@@ -16,8 +16,8 @@ from pathlib import Path
 import pytest
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-PLUGIN_INIT = REPO_ROOT / "plugins" / "hermes-plugin" / "__init__.py"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+PLUGIN_INIT = REPO_ROOT / "__init__.py"
 
 
 class StubContext:
@@ -61,7 +61,7 @@ def hermes_home(tmp_path, monkeypatch):
     home.mkdir()
     plugin_root = home / "plugins" / "guide"
     plugin_root.mkdir(parents=True)
-    live = REPO_ROOT / "plugins" / "hermes-plugin"
+    live = REPO_ROOT
     (plugin_root / "cron").symlink_to(live / "cron")
     (plugin_root / "bin").symlink_to(live / "bin")
     (plugin_root / "skills").symlink_to(live / "skills")

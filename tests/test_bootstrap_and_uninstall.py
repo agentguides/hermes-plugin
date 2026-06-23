@@ -13,7 +13,7 @@ from guide_plugin.paths import PluginPaths, compute
 from guide_plugin.profile_config import ProfileConfig
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 @pytest.fixture
@@ -24,7 +24,7 @@ def hermes_home(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     # bootstrap to find them — point it at the live source tree.
     plugin_root = home / "plugins" / "guide"
     plugin_root.mkdir(parents=True)
-    live_plugin = REPO_ROOT / "plugins" / "hermes-plugin"
+    live_plugin = REPO_ROOT
     # Symlink the static-content subtrees the bootstrap consults.
     (plugin_root / "cron").symlink_to(live_plugin / "cron")
     (plugin_root / "bin").symlink_to(live_plugin / "bin")
