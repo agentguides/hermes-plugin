@@ -1,0 +1,42 @@
+[project]
+name = "agentguides-hermes-plugin"
+version = "0.5.5"
+description = "guide-cli plugin for Hermes — walk Skills, guide MCP server, and per-profile library + walk-state management."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "pyyaml>=6.0",
+    "tomli>=2.0; python_version < '3.11'",
+]
+
+[project.urls]
+Homepage = "https://github.com/agentguides/hermes-plugin"
+Repository = "https://github.com/agentguides/hermes-plugin"
+Issues = "https://github.com/agentguides/hermes-plugin/issues"
+
+[dependency-groups]
+dev = [
+    "guide-cli",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+]
+
+[tool.uv.sources]
+guide-cli = { path = "../runtime", editable = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/guide_plugin"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -m 'not live and not perf' --import-mode=importlib"
+asyncio_mode = "auto"
+markers = [
+    "live: tests that require a real host binary (hermes, opencode, etc.) and opt-in env vars; skipped by default — run with `pytest -m live`",
+    "perf: wall-clock perf benchmarks; slow (~30s+); skipped by default — run with `pytest -m perf`",
+]

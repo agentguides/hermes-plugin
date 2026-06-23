@@ -2,8 +2,9 @@
 # Standard dotfile-pattern convention: code is git-managed; .local/ is not.
 .local/
 
-# Stray Python build artifacts (none expected — the plugin is stdlib-only,
-# but cover them just in case CPython spits some out).
+# Python build + tooling artifacts.
 __pycache__/
 *.pyc
 .pytest_cache/
+.venv/
+*.egg-info/

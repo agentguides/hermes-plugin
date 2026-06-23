@@ -1,10 +1,10 @@
 # `guide` — Hermes plugin
 
-> **Status:** prototype in the `agent-guides` monorepo (`plugins/hermes-plugin/`).
-> Once verified against a real Hermes install, this tree extracts cleanly into
-> its own repo at `agentguides/hermes-plugin`.
+Standalone repo: [`agentguides/hermes-plugin`](https://github.com/agentguides/hermes-plugin).
+Ships the `guide_plugin` Python package (`src/guide_plugin/`), the walk Skill
+triple, and the Hermes registration entrypoint.
 
-Per-profile install of the [`guide-cli`](https://github.com/briancripe/agent-guides)
+Per-profile install of the [`guide-cli`](https://github.com/agentguides/runtime)
 runtime under Hermes:
 
 - registers `mcp_servers.guide` in the profile's `config.yaml` via a stable
@@ -21,8 +21,9 @@ runtime under Hermes:
 
 ```bash
 hermes plugins install agentguides/hermes-plugin --enable
-# or, during prototyping, from this repo:
-hermes plugins install ./plugins/hermes-plugin --enable
+# or, from a local checkout:
+git clone git@github.com:agentguides/hermes-plugin.git
+hermes plugins install ./hermes-plugin --enable
 ```
 
 On first run the plugin:
@@ -90,9 +91,27 @@ The plugin code in this tree is git-managed; `.local/` survives plugin updates
 because `hermes plugins update guide` runs `git pull`, which doesn't touch
 untracked files.
 
+## Development
+
+This repo ships a real Python package (`guide_plugin`) plus a test suite that
+includes a genuine plugin↔runtime integration test (`tests/test_multi_profile.py`),
+which imports both `guide_plugin` and the `guide-cli` runtime. The runtime is
+resolved from the sibling checkout at `../runtime` via `[tool.uv.sources]`.
+
+```bash
+just test     # uv run pytest (editable-installs guide_plugin + sibling guide-cli)
+just render   # regenerate skills/{walk,walk-observer,walk-inline}/SKILL.md
+```
+
+### Regenerating the walk Skills
+
+`skills/{walk,walk-observer,walk-inline}/SKILL.md` are **derived artifacts** of
+`guide_cli.resources.render_router_skill` / `render_walk_skill`. Do not hand-edit
+them — run `just render` (or `uv run python scripts/render_plugin_skills.py`) and
+commit the result. Re-rendering against the pinned runtime reproduces the
+committed files byte-for-byte.
+
 ## See also
 
-- [`.planning/plans/v0.5.5-hermes-plugin.md`](../../.planning/plans/v0.5.5-hermes-plugin.md) — design.
-- [`docs/cli/library.md`](../../docs/cli/library.md) — central library shape.
-- [`docs/cli/view.md`](../../docs/cli/view.md) — the symlink-farm primitive.
-- [`docs/cli/sources.md`](../../docs/cli/sources.md) — pull sources.
+- [`guide-cli` runtime](https://github.com/agentguides/runtime) — the central
+  library, symlink-farm view primitive, and pull sources this plugin drives.

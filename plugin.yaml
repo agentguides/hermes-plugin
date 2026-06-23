@@ -1,5 +1,7 @@
 name: guide
 version: "0.5.5"
+homepage: https://github.com/agentguides/hermes-plugin
+repository: https://github.com/agentguides/hermes-plugin
 description: >
   guide-cli plugin for Hermes — installs the walk Skills, registers the
   guide MCP server, and exposes per-profile library + walk-state management.
