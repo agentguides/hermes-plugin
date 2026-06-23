@@ -1,7 +1,7 @@
 ---
 name: walk
 description: |
-  Walk an guide-cli Guide. Activate when the user asks to walk, run,
+  Walk a Guide. Activate when the user asks to walk, run,
   execute, perform, or resume a Guide; or when they reference a multi-step
   workflow by name and want it driven end-to-end.
   Trigger phrases: "walk the X guide", "run the X guide", "execute the X
@@ -14,10 +14,10 @@ guide:
     default_mode: observer
 ---
 
-# `walk` — guide-cli walk Skill router
+# `walk` — guide walk Skill router
 
 This Skill routes to the mode-specific walk Skill based on the runtime
-environment. The guide-cli walk runtime supports two audit-mode
+environment. The guide walk runtime supports two audit-mode
 surfaces — **observer** and **in_band** (a.k.a. **inline**) — installed
 side-by-side as `walk-observer` and `walk-inline`. Which one to use is a
 per-walk choice driven by the MCP server's current mode.

@@ -10,7 +10,7 @@ is deliberate: every step's failure mode leaves the next step recoverable.
   5. ``guide view apply`` against the freshly-populated library.
 
 Steps 4 and 5 shell out to `guide`; the earlier steps are pure filesystem
-ops so they work even when `guide-cli` install failed and we want to leave
+ops so they work even when `agentguides` install failed and we want to leave
 the bubble half-set-up for the operator to inspect.
 """
 

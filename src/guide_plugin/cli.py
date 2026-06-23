@@ -26,7 +26,7 @@ def uv_on_path() -> bool:
 
 
 def ensure_guide_installed() -> None:
-    """Plan §1: if `guide` is missing, try `uv tool install guide-cli`.
+    """Plan §1: if `guide` is missing, try `uv tool install agentguides`.
 
     Falls through to a clear operator-facing error if `uv` is also absent.
     """
@@ -34,7 +34,7 @@ def ensure_guide_installed() -> None:
         return
     if not uv_on_path():
         raise GuideNotInstalled(
-            "guide-cli is not installed and `uv` is not available to "
+            "agentguides is not installed and `uv` is not available to "
             "auto-install it. Install one of:\n"
             "  pipx install agentguides   (or)   uv tool install agentguides\n"
             "then re-enable the plugin."

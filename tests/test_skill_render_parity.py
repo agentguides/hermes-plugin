@@ -8,7 +8,7 @@ cue to re-run the recipe.
 This is the ONLY test that reaches into the runtime: it's marked
 `requires_runtime` and skips cleanly when `guide_cli` isn't importable, so the
 runtime-source-free core suite (`pytest -m "not requires_runtime"`, or any env
-without guide-cli) stays green without it.
+without agentguides) stays green without it.
 """
 
 from __future__ import annotations

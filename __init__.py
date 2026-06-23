@@ -2,7 +2,7 @@
 
 Plan §"Phase C — register(ctx)":
 
-  1. Detect `guide` on PATH; auto-`uv tool install guide-cli` if missing.
+  1. Detect `guide` on PATH; auto-`uv tool install agentguides` if missing.
   2. Read `$HERMES_HOME` → derive scope name.
   3. Compute paths.
   4. Render / register the walk Skills.
@@ -16,7 +16,7 @@ Plan §"Phase C — register(ctx)":
 
 Hermes calls `register(ctx)` once per process boot. We keep the body
 defensive: any single step failing logs and continues so the operator
-can recover the bubble manually if `guide-cli` isn't installable in
+can recover the bubble manually if `agentguides` isn't installable in
 their environment.
 
 The package layout in this repo:

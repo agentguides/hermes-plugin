@@ -1,7 +1,7 @@
 ---
 name: walk-inline
 description: |
-  Walk an guide-cli Guide. Activate when the user asks to walk, run,
+  Walk a Guide. Activate when the user asks to walk, run,
   execute, perform, or resume a Guide; or when they reference a multi-step
   workflow by name and want it driven end-to-end.
   Trigger phrases: "walk the X guide", "run the X guide", "execute the X
@@ -15,9 +15,9 @@ guide:
     features: ["linear-steps", "prereqs"]
 ---
 
-# Walking an `guide-cli` Guide
+# Walking a Guide
 
-You are the Guide v0.2 runtime for this session. All state mutations go through the `guide-cli` MCP server tools, never through direct file I/O on run files.
+You are the Guide v0.2 runtime for this session. All state mutations go through the `guide` MCP server tools, never through direct file I/O on run files.
 
 
 This Skill is configured for **in_band mode**. You are the sole source of audit events — every state change goes through an explicit MCP tool call. There is no harness-side observer to reconstruct from your tool stream.

@@ -2,16 +2,16 @@
 
 Plan §"Phase C — register(ctx)" promises a defensive shape: any single step
 failing logs and continues so the operator can recover the bubble manually
-if `guide-cli` isn't installable in their environment.
+if `agentguides` isn't installable in their environment.
 
-This file proves the contract: when guide-cli AND uv are both missing, the
+This file proves the contract: when agentguides AND uv are both missing, the
 plugin still registers Skills + CLI + hook + slash, writes mcp_servers.guide
 into config.yaml, upserts the cron entry, and creates `.local/` — only the
 initial library pull + view apply fail (and they fail gracefully via
 BootstrapReport.pull_failures).
 
-An operator who installs the plugin before installing guide-cli can
-`pipx install guide-cli` afterwards and `hermes guide sync` to recover
+An operator who installs the plugin before installing agentguides can
+`pipx install agentguides` afterwards and `hermes guide sync` to recover
 without reinstalling the plugin.
 """
 
@@ -121,7 +121,7 @@ def test_register_completes_when_guide_missing(
 
     # The plugin logged the missing-binary diagnostic.
     captured = capsys.readouterr()
-    assert "guide-cli is not installed" in captured.err
+    assert "agentguides is not installed" in captured.err
 
 
 def test_register_skill_failure_does_not_abort(

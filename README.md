@@ -4,7 +4,7 @@ Standalone repo: [`agentguides/hermes-plugin`](https://github.com/agentguides/he
 Ships the `guide_plugin` Python package (`src/guide_plugin/`), the walk Skill
 triple, and the Hermes registration entrypoint.
 
-Per-profile install of the [`guide-cli`](https://github.com/agentguides/runtime)
+Per-profile install of the [`agentguides`](https://github.com/agentguides/runtime)
 runtime under Hermes:
 
 - registers `mcp_servers.guide` in the profile's `config.yaml` via a stable
@@ -28,7 +28,7 @@ hermes plugins install ./hermes-plugin --enable
 
 On first run the plugin:
 
-1. ensures `guide` is on PATH (auto-`uv tool install guide-cli` when `uv`
+1. ensures `guide` is on PATH (auto-`uv tool install agentguides` when `uv`
    is available; otherwise prints operator instructions);
 2. derives the profile *scope name* from `$HERMES_HOME` (`default` for the
    root profile, otherwise the basename of `$HERMES_HOME`);
@@ -95,11 +95,11 @@ untracked files.
 
 This repo ships a real Python package (`guide_plugin`) plus a test suite that
 includes a genuine plugin↔runtime integration test (`tests/test_multi_profile.py`),
-which imports both `guide_plugin` and the `guide-cli` runtime. The runtime is
+which imports both `guide_plugin` and the `guide` runtime. The runtime is
 resolved from the sibling checkout at `../runtime` via `[tool.uv.sources]`.
 
 ```bash
-just test     # uv run pytest (editable-installs guide_plugin + sibling guide-cli)
+just test     # uv run pytest (editable-installs guide_plugin + sibling agentguides)
 just render   # regenerate skills/{walk,walk-observer,walk-inline}/SKILL.md
 ```
 
@@ -113,5 +113,5 @@ committed files byte-for-byte.
 
 ## See also
 
-- [`guide-cli` runtime](https://github.com/agentguides/runtime) — the central
+- [`guide` runtime](https://github.com/agentguides/runtime) — the central
   library, symlink-farm view primitive, and pull sources this plugin drives.
