@@ -22,7 +22,7 @@ runtime is declared by the `requires.version` range below and proven green by
   plugin↔runtime integration test), and the walk-Skill renderer came with it.
 - `[tool.uv.sources] agentguides = {path="../runtime", editable=true}` resolves
   the runtime from the sibling checkout for local dev; the
-  `agentguides>=0.5.9,<0.6.0` dev-group constraint is the `requires.version`
+  `agentguides>=0.5.10,<0.6.0` dev-group constraint is the `requires.version`
   range — the verified-against runtime a non-editable resolve would use, and
   what `tests/test_requires_version.py` asserts the runtime-under-test satisfies.
 

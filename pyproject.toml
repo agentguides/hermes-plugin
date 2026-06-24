@@ -21,7 +21,7 @@ dev = [
     # editable sibling checkout via [tool.uv.sources]; the constraint documents
     # what a non-editable resolve would pull and is the compat range
     # `just verify-runtime` proves green.
-    "agentguides>=0.5.9,<0.6.0",
+    "agentguides>=0.5.10,<0.6.0",
     "packaging>=23",
     "pytest>=8.0",
     "pytest-asyncio>=0.23",
