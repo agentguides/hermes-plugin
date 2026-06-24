@@ -12,7 +12,6 @@ metadata:
   guide:
     entry: GUIDE.md
     spec_version: "0.1"
-    state_backend: markdown
 ---
 
 # Database Rollback (rescue)
