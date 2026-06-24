@@ -2,11 +2,17 @@
 
 All notable changes to `agentguides-hermes-plugin` are recorded here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
-## [0.5.5] — 2026-06-23 (standalone repo carve + agentguides rename + release automation)
+## [0.1.0] — 2026-06-23 (first standalone release: repo carve + agentguides rename + release automation)
 
-> Theme: *the Hermes plugin carves out of the runtime monorepo into its own repo,
-> picks up the `guide-cli` → `agentguides` dist/import rename, and gains
-> release/compat automation so a tagged tree is a validated artifact.*
+> Theme: *first release of the `guide` Hermes plugin as a standalone repo. It
+> carves out of the runtime monorepo, picks up the `guide-cli` → `agentguides`
+> dist/import rename, and gains release/compat automation so a tagged tree is a
+> validated artifact.*
+
+Versioned independently of the runtime: `0.1.0` is the first ecosystem release
+(the pre-split `0.5.x` monorepo numbers never shipped). Compatibility with the
+runtime is declared by the `requires_version` range below and proven green by
+`just verify-runtime`.
 
 ### Standalone repo carve
 
@@ -15,9 +21,10 @@ All notable changes to `agentguides-hermes-plugin` are recorded here. Format fol
   The package, its pytest suite (including the `test_multi_profile.py`
   plugin↔runtime integration test), and the walk-Skill renderer came with it.
 - `[tool.uv.sources] agentguides = {path="../runtime", editable=true}` resolves
-  the runtime from the sibling checkout for local dev; the new
-  `agentguides>=0.5.8,<0.6.0` dev-group constraint documents the verified-against
-  range a non-editable resolve would use.
+  the runtime from the sibling checkout for local dev; the
+  `agentguides>=0.5.9,<0.6.0` dev-group constraint is the `requires_version`
+  range — the verified-against runtime a non-editable resolve would use, and
+  what `tests/test_requires_version.py` asserts the runtime-under-test satisfies.
 
 ### `agentguides` rename
 
