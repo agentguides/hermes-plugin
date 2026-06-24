@@ -11,7 +11,6 @@ metadata:
   type: guide
   guide:
     entry: GUIDE.md
-    spec_version: "0.1"
 ---
 
 # Database Rollback (rescue)

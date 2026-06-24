@@ -1,5 +1,4 @@
 ---
-agent-guides: book/v0.1
 id: db-ops
 title: Database Operations
 version: 0.1.0
