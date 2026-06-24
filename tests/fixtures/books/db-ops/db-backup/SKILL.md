@@ -10,7 +10,7 @@ metadata:
   type: guide
   guide:
     entry: GUIDE.md
-    spec_version: "0.1.0"
+    spec_version: "0.1"
     state_backend: markdown
 ---
 
