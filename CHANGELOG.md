@@ -11,7 +11,7 @@ All notable changes to `agentguides-hermes-plugin` are recorded here. Format fol
 
 Versioned independently of the runtime: `0.1.0` is the first ecosystem release
 (the pre-split `0.5.x` monorepo numbers never shipped). Compatibility with the
-runtime is declared by the `requires_version` range below and proven green by
+runtime is declared by the `requires.version` range below and proven green by
 `just verify-runtime`.
 
 ### Standalone repo carve
@@ -22,7 +22,7 @@ runtime is declared by the `requires_version` range below and proven green by
   plugin↔runtime integration test), and the walk-Skill renderer came with it.
 - `[tool.uv.sources] agentguides = {path="../runtime", editable=true}` resolves
   the runtime from the sibling checkout for local dev; the
-  `agentguides>=0.5.9,<0.6.0` dev-group constraint is the `requires_version`
+  `agentguides>=0.5.9,<0.6.0` dev-group constraint is the `requires.version`
   range — the verified-against runtime a non-editable resolve would use, and
   what `tests/test_requires_version.py` asserts the runtime-under-test satisfies.
 
