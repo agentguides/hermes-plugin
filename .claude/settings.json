@@ -18,7 +18,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "ws statusline",
+    "command": "bh statusline",
     "padding": 0
   }
 }
