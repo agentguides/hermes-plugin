@@ -77,3 +77,7 @@ bd.db
 
 # Interaction log (runtime churn; issue data lives in Dolt, synced via bd dolt push)
 interactions.jsonl
+
+# Added by bd (missing required patterns)
+*.gate.lock*
+last_pull
